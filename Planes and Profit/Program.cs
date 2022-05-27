@@ -1,16 +1,15 @@
 ﻿using System;
+using Aletheia.Service;
+using Aletheia.Service.StockData;
 
-namespace HelloWorld{
+
+namespace Fetch{
     class Program{
-        static async void Main(string[] args){
-            var httpClient= new HttpClient();
-
-            httpClient.BaseAddress = new Uri("https://yfapi.net/");
-            httpClient.DefaultRequestHeaders.Add("X-API-KEY", "<your API key>");
-            httpClient.DefaultRequestHeaders.Add("accept", "application/json");
-
-            var response = await httpClient.GetAsync("v11 / finance / quoteSummary / AAPL ? lang = en & region = US & modules = defaultKeyStatistics % 2CassetProfile");
-            var responseBody = await response.Content.ReadAsStringAsync();
+        static void Main(string[] args){
+            //only 5,000 calls a month
+            AletheiaService service = new AletheiaService("7FA4842C273E480E82BBDD69723301C4");
+            StockData quote = service.GetStockDataAsync("MSFT", true, true).Result;
+            Console.WriteLine(quote.SummaryData.Price.ToString("#,##0.00"));
         }
     }
 }
