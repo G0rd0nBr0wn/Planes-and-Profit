@@ -20,7 +20,7 @@ namespace Fetch {
             try {
                 //request is made
                 StockData quote = service.GetStockDataAsync(stockCode, true, true).Result;
-                Console.WriteLine(quote.SummaryData.Name);
+                Console.WriteLine(quote.SummaryData.Name); //placeholder data
             }
             catch (Exception ex) {
                 //the error thrown will be an outside code error
